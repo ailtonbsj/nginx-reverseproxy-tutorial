@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  hello-web1:
+    image: hello-web
+    ports:
+      - 8081:80
+  
+  hello-php1:
+    image: hello-php
+    ports:
+      - 8082:80
+    environment:
+      INSTANCE: instance1
+  
+  hello-php2:
+    image: hello-php
+    ports:
+      - 8083:80
+    environment:
+      INSTANCE: instance2
+
+  hello-php3:
+    image: hello-php
+    ports:
+      - 8084:80
+    environment:
+      INSTANCE: instance3
