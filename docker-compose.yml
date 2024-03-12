@@ -1,28 +1,55 @@
 version: '3.8'
 
+networks:
+  lab-nginx:
+    driver: bridge
+
 services:
-  hello-web1:
-    image: hello-web
+  nginx:
+    container_name: nginx1
+    image: nginx:latest
     ports:
-      - 8081:80
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./www:/app/www
+    networks:
+      - lab-nginx
+
+  hello-web:
+    container_name: hello-web1
+    image: hello-web
+    networks:
+      - lab-nginx
+    # ports:
+    #   - 8081:80
   
   hello-php1:
+    container_name: hello-php1
     image: hello-php
-    ports:
-      - 8082:80
     environment:
       INSTANCE: instance1
+    networks:
+      - lab-nginx
+    # ports:
+    #   - 8082:80
   
   hello-php2:
+    container_name: hello-php2
     image: hello-php
-    ports:
-      - 8083:80
     environment:
       INSTANCE: instance2
+    networks:
+      - lab-nginx
+    # ports:
+    #   - 8083:80
 
   hello-php3:
+    container_name: hello-php3
     image: hello-php
-    ports:
-      - 8084:80
     environment:
       INSTANCE: instance3
+    networks:
+      - lab-nginx
+    # ports:
+    #   - 8084:80
